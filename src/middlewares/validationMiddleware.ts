@@ -1,16 +1,24 @@
 import { Request, Response, NextFunction} from 'express'
-import patients from '../api/v1/patients/mockData.json'
+import {Schema} from "joi";
 
 
-export default function validationMiddleware() {
+export default function validationMiddleware(schema: Schema) {
     return (req: Request, res: Response, next: NextFunction) => {
-        const id: number = Number(req.params.id)
-        if (!(id >= 0)) {
-            res.status(400).send({message: 'Bad Request', id: req.params.id})
-        } else if (!patients.find(patient => patient.id === id)) {
-            res.status(404).send({message: 'Not found'})
-        } else {
-            return next()
+
+        const { body, params, query} = req;
+
+        const validationResult = schema.validate({body, params, query});
+
+        if (validationResult.error) {
+            return res.status(400).json(validationResult.error);
         }
+
+        req.body = validationResult.value.body;
+        req.params = validationResult.value.params;
+        req.query = validationResult.value.query;
+
+
+        return next();
+
     }
 }
