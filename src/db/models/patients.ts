@@ -34,7 +34,7 @@ export default (sequelize: Sequelize, modelName: string) => {
                 allowNull: false
             },
             birthdate: {
-                type: DataTypes.DATEONLY,
+                type: DataTypes.DATE,
                 allowNull: false
             },
             weight: {
@@ -67,7 +67,7 @@ export default (sequelize: Sequelize, modelName: string) => {
         });
 
     (PatientModel as any).associate = (models: Models) => {
-        //PatientModel.belongsTo(models.Diagnose, { foreignKey: 'diagnoseID'})
+        PatientModel.belongsTo(models.Diagnose, { foreignKey: 'diagnoseID'})
     }
 
     return PatientModel

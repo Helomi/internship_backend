@@ -10,7 +10,7 @@ import * as PostPatient from './post.patient'
 const router = Router()
 
 export default () => {
-    //router.get('/', validationMiddleware(GetPatients.schema), GetPatients.workflow)
+    router.get('/', validationMiddleware(GetPatients.schema), GetPatients.workflow)
     router.get('/:id', validationMiddleware(GetPatient.schema) , GetPatient.workflow)
     router.patch('/:id', validationMiddleware(PatchPatient.schema), PatchPatient.workflow)
     router.delete('/:id', validationMiddleware(DeletePatient.schema), DeletePatient.workflow)

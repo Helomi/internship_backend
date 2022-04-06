@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize"
 import * as database from '../../config/database'
 
-//import modelSubstance from './models/substances'
-//import modelDiagnose from './models/diagnoses'
+import modelSubstance from './models/substances'
+import modelDiagnose from './models/diagnoses'
 import modelPatient from './models/patients'
 import { forEach } from 'lodash'
 
@@ -16,8 +16,8 @@ sequelize.authenticate()
     .catch((err) => console.log(`Unable to connect to database ${err.messages}`))
 
 const modelsBuilder = (instance: Sequelize) => ({
-    //Substance: modelSubstance(instance, 'substance'),
-    //Diagnose: modelDiagnose(instance, 'diagnose'),
+    Substance: modelSubstance(instance, 'substance'),
+    Diagnose: modelDiagnose(instance, 'diagnose'),
     Patient: modelPatient(instance, 'patient')
 
 })
