@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import patients from "./mockData.json";
 import Joi from "joi";
+import {models} from "../../../db";
 
 export const schema = Joi.object( {
     body: Joi.object(),
@@ -11,23 +12,23 @@ export const schema = Joi.object( {
 })
 
 
-export const workflow = (req: Request, res: Response) => {
-    const fileName = "src/api/v1/patients/mockData.json"
-    const id = Number(req.params.id)
-    const patientID = patients.findIndex(patient => patient.id === id)
-    let fs = require('fs')
+export const workflow = async (req: Request, res: Response) => {
+    const id: number = Number(req.params.id)
+    const {Patient} = models
 
+    const patient = await Patient.findByPk(id)
 
-    delete patients[patientID]
-    patients.splice(patientID, 1)
-
-
-    fs.writeFile(fileName, JSON.stringify(patients, null, 2), function() {
-        res.json({
+    if (!patient) {
+        res.status(404).json({
+            message: 'Patient with this ID could not be found'
+        })
+    } else {
+        await patient.destroy()
+        res.status(200).json({
             messages: [{
                 message: "Patient's data was successfuly deleted",
                 type: 'SUCCESS'
             }]
         })
-    })
+    }
 }
