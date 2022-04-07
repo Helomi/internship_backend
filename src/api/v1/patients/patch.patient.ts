@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import patients from './mockData.json'
 import Joi from "joi";
+import {models} from "../../../db";
 
 export const schema = Joi.object( {
     body: Joi.object({
@@ -20,12 +20,26 @@ export const schema = Joi.object( {
 })
 
 
-export const workflow = (req: Request, res: Response) => {
-    const fileName = "src/api/v1/patients/mockData.json"
-    const updatePatient = req.body
-    const patient: any = patients.find(patient => patient.id === Number(req.params.id))
-    let fs = require('fs')
-    Object.keys(updatePatient).forEach(key => patient[key] = updatePatient[key]);
+export const workflow = async (req: Request, res: Response) => {
+    const id: number = Number(req.params.id)
+    const {Patient} = models
+    const updatePatient: any = await Patient.findByPk(id)
+    if (!updatePatient) {
+        res.status(404).json({
+            message: 'Patient with this ID could not be found'
+        })
+    } else {
+
+    const updatePatientData = req.body
+
+    Object.keys(updatePatientData).forEach(key => updatePatient[key] = updatePatientData[key])
+    await updatePatient.save()
+
+    // const fileName = "src/api/v1/patients/mockData.json"
+    // const updatePatient = req.body
+    // const patient: any = patients.find(patient => patient.id === Number(req.params.id))
+    // let fs = require('fs')
+    // Object.keys(updatePatient).forEach(key => patient[key] = updatePatient[key]);
 
     // patients.at(patientID).firstName = updatePatient.firstName ? updatePatient.firstName : patients.at(patientID).firstName
     // patients.at(patientID).lastName = updatePatient.lastName ? updatePatient.lastName : patients.at(patientID).lastName
@@ -37,15 +51,12 @@ export const workflow = (req: Request, res: Response) => {
     // patients.at(patientID).diagnose.id = Number(updatePatient.diagnoseID) ? Number(updatePatient.diagnoseID) : patients.at(patientID).diagnose.id
 
 
-    fs.writeFile(fileName, JSON.stringify(patients, null, 2), function() {
+
         res.json({
             messages: [{
                 message: "Patient's data was successfuly updated",
                 type: 'SUCCESS'
             }]
         })
-    })
-
-
-
+    }
 }
