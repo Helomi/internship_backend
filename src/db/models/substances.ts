@@ -1,11 +1,14 @@
 import { Sequelize, Model, DataTypes } from 'sequelize'
 import {Models} from "../index";
+import {DiagnoseModel} from "./diagnoses";
 
 export class SubstanceModel extends Model {
     id: number
     name: string
     timeUnit: string
     halfLife: number
+
+    diagnoses: DiagnoseModel[]
 }
 
 export default (sequelize: Sequelize, modelName: string) => {

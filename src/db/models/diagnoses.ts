@@ -1,5 +1,7 @@
 import { Sequelize, Model, DataTypes } from 'sequelize'
 import { Models } from '..'
+import {PatientModel} from "./patients";
+import {SubstanceModel} from "./substances";
 
 export class DiagnoseModel extends Model {
     id: number
@@ -9,6 +11,8 @@ export class DiagnoseModel extends Model {
 
     //FK
     substanceID: number
+    patients: PatientModel[]
+    substance: SubstanceModel
 }
 
 export default (sequelize: Sequelize, modelName: string) => {

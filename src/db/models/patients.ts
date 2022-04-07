@@ -1,6 +1,7 @@
 import { Sequelize, Model, DataTypes } from 'sequelize'
 import { Models } from '..'
 import {GENDER, GENDERS} from '../../utilities/enums'
+import {DiagnoseModel} from "./diagnoses";
 
 export class PatientModel extends Model {
     id: number
@@ -14,6 +15,7 @@ export class PatientModel extends Model {
 
     //FK
     diagnoseID: number
+    diagnose: DiagnoseModel
 }
 
 export default (sequelize: Sequelize, modelName: string) => {
