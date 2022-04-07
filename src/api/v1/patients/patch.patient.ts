@@ -33,8 +33,23 @@ export const workflow = async (req: Request, res: Response) => {
     const updatePatientData = req.body
 
     Object.keys(updatePatientData).forEach(key => updatePatient[key] = updatePatientData[key])
-    await updatePatient.save()
-
+    await updatePatient.save().then(function (){
+        res.status(200).json({
+            messages: [{
+                message: "Patient's data was successfuly updated",
+                type: 'SUCCESS'
+            }]
+        })
+        }).catch(function() {
+          res.status(400).json({
+              messages: [{
+                  message: "Something goes wrong",
+                  type: 'FAIL'
+              }]
+          })
+        console.error(`ERROR: patch.patient`)
+        }
+    )
     // const fileName = "src/api/v1/patients/mockData.json"
     // const updatePatient = req.body
     // const patient: any = patients.find(patient => patient.id === Number(req.params.id))
@@ -52,11 +67,6 @@ export const workflow = async (req: Request, res: Response) => {
 
 
 
-        res.json({
-            messages: [{
-                message: "Patient's data was successfuly updated",
-                type: 'SUCCESS'
-            }]
-        })
+
     }
 }
