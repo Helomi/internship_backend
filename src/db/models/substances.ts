@@ -1,4 +1,5 @@
 import { Sequelize, Model, DataTypes } from 'sequelize'
+import {Models} from "../index";
 
 export class SubstanceModel extends Model {
     id: number
@@ -36,6 +37,8 @@ export default (sequelize: Sequelize, modelName: string) => {
             modelName,
             tableName: 'substances'
         });
-
+    (SubstanceModel as any).associate = (models: Models) => {
+        SubstanceModel.hasMany(models.Diagnose, { foreignKey: 'substanceID'})
+    }
     return SubstanceModel
 }

@@ -23,10 +23,10 @@ export const schema = Joi.object( {
 export const workflow = async (req: Request, res: Response) => {
     const {Patient} = models
     const query: any = req.query
+    const order = query.order.split(":")
     let patientsSize: number
 
 
-    const order = query.order.split(":")
     const options: LooseObject = {
         limit: query.limit,
         offset: (query.limit * (query.page-1)),
