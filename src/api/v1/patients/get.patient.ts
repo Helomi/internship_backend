@@ -31,8 +31,11 @@ export const workflow = async (req: Request, res: Response) => {
             attributes:
                 {
                     include: [
+                        //Age
                         [sequelize.Sequelize.fn('DATE_PART', 'year', sequelize.Sequelize.fn('AGE', sequelize.Sequelize.fn('now'), sequelize.Sequelize.col('birthdate'))), "age"],
+                        //Type
                         [sequelize.Sequelize.literal('CASE WHEN date_part(\'year\', age(now(), patient.birthdate)) >= 18 THEN \'ADULT\' ELSE \'CHILD\' END'), "personType"],
+                        //SubstanceAmmount
                         [sequelize.Sequelize.literal('CASE WHEN date_part(\'year\', age(now(), patient.birthdate)) >= 18 OR weight >= 68 THEN (2 * weight) + 30 ELSE (1.6 * weight) + 20 END'), 'substanceAmount']
                     ],
                     exclude: [
