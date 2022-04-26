@@ -1,6 +1,7 @@
 import express from 'express'
 
 import v1 from './api/v1'
+import auth from './auth'
 
 const app = express()
 
@@ -9,5 +10,6 @@ app.use(express.json())
 
 // Register router
 app.use('/api/v1', v1())
+app.use('/auth', auth())
 
 export default app
