@@ -1,6 +1,7 @@
 import { Sequelize, Model, DataTypes } from 'sequelize'
 import {Models} from "../index";
 import {DiagnoseModel} from "./diagnoses";
+import {TIME_UNIT_SUBSTANCES} from "../../utilities/enums";
 
 export class SubstanceModel extends Model {
     id: number
@@ -25,7 +26,7 @@ export default (sequelize: Sequelize, modelName: string) => {
                 allowNull: false
             },
             timeUnit: {
-                type: DataTypes.TEXT,
+                type: DataTypes.ENUM(...TIME_UNIT_SUBSTANCES),
                 allowNull: false
             },
             halfLife: {
