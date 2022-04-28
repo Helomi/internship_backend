@@ -2,6 +2,8 @@ import {DataTypes, Model, Sequelize} from "sequelize";
 import {ROLE, ROLES} from "../../utilities/enums";
 import {PatientModel} from "./patients";
 import {Models} from "../index";
+import bcrypt from 'bcrypt';
+
 
 export class UserModel extends Model {
     id: number
@@ -12,6 +14,7 @@ export class UserModel extends Model {
     //FK
     patientID: number
     patient: PatientModel
+    verifyPassword: (password: string) => Promise<boolean>;
 
 }
 
@@ -55,4 +58,10 @@ export default (sequelize: Sequelize, modelName: string) => {
     }
 
     return UserModel
+}
+
+UserModel.prototype.verifyPassword = async function (password) {
+    const user = this
+
+    return await bcrypt.compare(password, user.password)
 }

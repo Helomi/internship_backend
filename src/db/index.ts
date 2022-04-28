@@ -4,6 +4,7 @@ import * as database from '../../config/database'
 import modelSubstance from './models/substances'
 import modelDiagnose from './models/diagnoses'
 import modelPatient from './models/patients'
+import modelUser from './models/users'
 import { forEach } from 'lodash'
 
 const env = process.env.NODE_ENV
@@ -18,7 +19,8 @@ sequelize.authenticate()
 const modelsBuilder = (instance: Sequelize) => ({
     Substance: modelSubstance(instance, 'substance'),
     Diagnose: modelDiagnose(instance, 'diagnose'),
-    Patient: modelPatient(instance, 'patient')
+    Patient: modelPatient(instance, 'patient'),
+    User: modelUser(instance, 'user')
 
 })
 
