@@ -3,6 +3,7 @@ import Joi from "joi";
 import sequelize, {models} from "../../../db";
 import {DiagnoseModel} from "../../../db/models/diagnoses";
 import {SubstanceModel} from "../../../db/models/substances";
+import {ROLE} from "../../../utilities/enums";
 
 export const schema = Joi.object( {
     body: Joi.object(),
@@ -15,8 +16,10 @@ export const schema = Joi.object( {
 
 export const workflow = async (req: Request, res: Response) => {
     const id: number = Number(req.params.id)
-    const {Patient} = models
+    const user = req.user as any
+    if (user.patient_id === id && user.role === ROLE.USER) {}
 
+    const {Patient} = models
     const patient = await Patient.findOne({
             where: {
                 id: id

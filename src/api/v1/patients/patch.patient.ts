@@ -50,23 +50,5 @@ export const workflow = async (req: Request, res: Response) => {
         console.error(`ERROR: patch.patient`)
         }
     )
-    // const fileName = "src/api/v1/patients/mockData.json"
-    // const updatePatient = req.body
-    // const patient: any = patients.find(patient => patient.id === Number(req.params.id))
-    // let fs = require('fs')
-    // Object.keys(updatePatient).forEach(key => patient[key] = updatePatient[key]);
-
-    // patients.at(patientID).firstName = updatePatient.firstName ? updatePatient.firstName : patients.at(patientID).firstName
-    // patients.at(patientID).lastName = updatePatient.lastName ? updatePatient.lastName : patients.at(patientID).lastName
-    // patients.at(patientID).birthdate = updatePatient.birthdate ? updatePatient.birthdate : patients.at(patientID).birthdate
-    // patients.at(patientID).weight = Number(updatePatient.weight) ? Number(updatePatient.weight) : patients.at(patientID).weight
-    // patients.at(patientID).height = Number(updatePatient.height) ? Number(updatePatient.height) : patients.at(patientID).height
-    // patients.at(patientID).identificationNumber = updatePatient.identificationNumber ? updatePatient.identificationNumber : patients.at(patientID).identificationNumber
-    // patients.at(patientID).gender = updatePatient.gender ? updatePatient.gender : patients.at(patientID).gender
-    // patients.at(patientID).diagnose.id = Number(updatePatient.diagnoseID) ? Number(updatePatient.diagnoseID) : patients.at(patientID).diagnose.id
-
-
-
-
     }
 }

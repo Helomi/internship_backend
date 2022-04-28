@@ -40,35 +40,4 @@ export const workflow = async (req: Request, res: Response) => {
             })
         console.error(`ERROR: ${e}`);
     })
-
-
-    // try {
-    //
-    // } catch (e) {
-    //     if (e) {
-    //         res.status(400).json({
-    //             messages: [{
-    //                 message: "Patient's data was successfuly created",
-    //                 type: 'Fail'
-    //             }]
-    //         })
-    //     }
-    // }
-
-
-
-
-
-    // const fileName = "src/api/v1/patients/mockData.json"
-    // const newPatientID = patients[patients.length - 1].id + 1
-    //
-    //
-    // patients.push(req.body)
-    // patients[patients.length -1].id = newPatientID;
-    //
-    //
-    // fs.writeFile(fileName, JSON.stringify(patients, null, 2), function() {
-
-    // })
-
 }

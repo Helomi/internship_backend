@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import patients from "./mockData.json";
 import Joi from "joi";
 import {models} from "../../../db";
 

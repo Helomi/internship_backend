@@ -40,10 +40,7 @@ export default (sequelize: Sequelize, modelName: string) => {
             type: DataTypes.ENUM(...ROLES),
             allowNull: false
         },
-        patientID: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        }
+
     },
         {
             paranoid: false,
@@ -54,7 +51,10 @@ export default (sequelize: Sequelize, modelName: string) => {
         });
 
     (UserModel as any).associate = (models: Models) => {
-        UserModel.belongsTo(models.Patient, {foreignKey: 'patientID'})
+        UserModel.belongsTo(models.Patient, {foreignKey: {
+            name: 'patientID',
+            allowNull: true
+        }})
     }
 
     return UserModel
