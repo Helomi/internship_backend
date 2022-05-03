@@ -56,7 +56,7 @@ export const workflow = async (req: Request, res: Response) => {
                     'diagnoseID'
                 ]
             },
-        logging: true
+        logging: false
     }
 
     if (query.gender) {

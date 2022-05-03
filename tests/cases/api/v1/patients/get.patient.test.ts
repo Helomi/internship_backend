@@ -37,7 +37,7 @@ export const responseSchema = Joi.object({
 
 
 describe(`[GET] ${endpoint(':patientID')}`,()=>{
-    it('Response should return code 200 and valid data', async()=> {
+    it('Response should return code 200 - valid data', async()=> {
         const response = await supertest(app)
             .get(endpoint(19))
             .set('Content-Type', 'application/json')
