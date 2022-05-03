@@ -2,7 +2,7 @@ import passport from "passport";
 import {Request} from "express";
 import {ExtractJwt, Strategy as JwtStrategy, VerifiedCallback} from "passport-jwt";
 import {Strategy as LocalStrategy} from "passport-local";
-import {ROLE, ROLES} from "../utilities/enums";
+import {USER_ROLE, USER_ROLES} from "../utilities/enums";
 import {models} from "../db";
 
 
@@ -38,27 +38,26 @@ passport.use('jwt-api', new JwtStrategy({
     ignoreExpiration: true
 }, (req: Request, payload: any, done: VerifiedCallback)=>{
     let user
-    console.log(payload)
-    if(!Object.values(ROLES).includes(payload.role)){
+    if(!Object.values(USER_ROLES).includes(payload.role)){
         throw new Error('Unauthorized')
     }
-    if(payload.role===ROLE.USER){
+    if(payload.role===USER_ROLE.USER){
         user={
             id: payload.id,
             patient_id: payload.p_id,
-            role: ROLE.USER
+            role: USER_ROLE.USER
         }
-    }else if(payload.role===ROLE.ADMIN){
+    }else if(payload.role===USER_ROLE.ADMIN){
         user={
             id: payload.id,
             patient_id: payload.p_id,
-            role: ROLE.ADMIN
+            role: USER_ROLE.ADMIN
         }
     }else{
         user={
             id: payload.id,
             patient_id: payload.p_id,
-            role: ROLE.SUPER_ADMIN
+            role: USER_ROLE.SUPER_ADMIN
         }
     }
     done(null, user)

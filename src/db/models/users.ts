@@ -1,5 +1,5 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import {ROLE, ROLES} from "../../utilities/enums";
+import {USER_ROLE, USER_ROLES} from "../../utilities/enums";
 import {PatientModel} from "./patients";
 import {Models} from "../index";
 import bcrypt from 'bcrypt';
@@ -9,7 +9,7 @@ export class UserModel extends Model {
     id: number
     username: string
     password: string
-    role: ROLE
+    role: USER_ROLE
 
     //FK
     patientID: number
@@ -37,7 +37,7 @@ export default (sequelize: Sequelize, modelName: string) => {
             allowNull: false
         },
         role: {
-            type: DataTypes.ENUM(...ROLES),
+            type: DataTypes.ENUM(...USER_ROLES),
             allowNull: false
         },
 

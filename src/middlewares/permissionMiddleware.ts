@@ -5,6 +5,5 @@ export default (permissions: string[]) => (req: Request,res: Response, next: Nex
     if(!permissions.includes(usr.role)){
         return next(new Error('Forbidden'))
     }
-    console.log(req.user)
     return next()
 }

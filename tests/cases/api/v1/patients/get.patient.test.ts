@@ -45,9 +45,7 @@ describe(`[GET] ${endpoint(':patientID')}`,()=>{
         expect(responseSchema.validate(response.body).error).to.eq(undefined)
         expect(response.type).to.eq('application/json')
     })
-})
 
-describe(`[GET] ${endpoint(':patientID')}`,()=>{
     it('Response should return code 400 Bad request', async()=> {
         const response = await supertest(app)
             .get(endpoint(-1))
@@ -56,9 +54,7 @@ describe(`[GET] ${endpoint(':patientID')}`,()=>{
         expect(response.type).to.eq('application/json')
         expect(response.body.details[0].message).to.eq('"params.id" must be greater than or equal to 1')
     })
-})
 
-describe(`[GET] ${endpoint(':patientID')}`,()=>{
     it('Response should return code 400 Bad request', async()=> {
         const response = await supertest(app)
             .get(endpoint("sdafasd"))
@@ -67,9 +63,7 @@ describe(`[GET] ${endpoint(':patientID')}`,()=>{
         expect(response.type).to.eq('application/json')
         expect(response.body.details[0].message).to.eq('"params.id" must be a number')
     })
-})
 
-describe(`[GET] ${endpoint(':patientID')}`,()=>{
     it('Response should return code 404 not found', async()=> {
         const response = await supertest(app)
             .get(endpoint(999999999))

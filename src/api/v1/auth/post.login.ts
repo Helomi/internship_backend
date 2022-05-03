@@ -13,7 +13,8 @@ export const schema = Joi.object( {
 
 export const workflow = async (req: Request, res: Response) => {
     const user = res.locals.user
-    const body = { id: user.id, role: user.role, p_id: user.patientID };
-    const token = jwt.sign(body, process.env.JWT_SECRET)
+    const payload = { id: user.id, role: user.role, p_id: user.patientID };
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {header: {alg: "HS256", "typ": "jwt-api"}})
     res.status(200).json({ status: "Success", message: "Your token was successfully generated", token: token })
 }

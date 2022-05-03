@@ -8,7 +8,7 @@ import * as DeletePatient from './delete.patient'
 import * as PostPatient from './post.patient'
 import passport from "passport";
 import permissionMiddleware from "../../../middlewares/permissionMiddleware";
-import {ROLE} from "../../../utilities/enums";
+import {USER_ROLE} from "../../../utilities/enums";
 import errorMiddleware from "../../../middlewares/errorMiddleware";
 
 const router = Router()
@@ -16,31 +16,31 @@ const router = Router()
 export default () => {
     router.get('/',
         passport.authenticate('jwt-api'),
-        permissionMiddleware([ROLE.ADMIN, ROLE.SUPER_ADMIN]),
+        permissionMiddleware([USER_ROLE.ADMIN, USER_ROLE.SUPER_ADMIN]),
         validationMiddleware(GetPatients.schema),
         GetPatients.workflow,
         errorMiddleware())
     router.get('/:id',
         passport.authenticate('jwt-api'),
-        permissionMiddleware([ROLE.ADMIN, ROLE.USER, ROLE.SUPER_ADMIN]),
+        permissionMiddleware([USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN]),
         validationMiddleware(GetPatient.schema),
         GetPatient.workflow,
         errorMiddleware())
     router.patch('/:id',
         passport.authenticate('jwt-api'),
-        permissionMiddleware([ROLE.SUPER_ADMIN]),
+        permissionMiddleware([USER_ROLE.SUPER_ADMIN]),
         validationMiddleware(PatchPatient.schema),
         PatchPatient.workflow,
         errorMiddleware())
     router.delete('/:id',
         passport.authenticate('jwt-api'),
-        permissionMiddleware([ROLE.SUPER_ADMIN]),
+        permissionMiddleware([USER_ROLE.SUPER_ADMIN]),
         validationMiddleware(DeletePatient.schema),
         DeletePatient.workflow,
         errorMiddleware())
     router.post('/',
         passport.authenticate('jwt-api'),
-        permissionMiddleware([ROLE.SUPER_ADMIN]),
+        permissionMiddleware([USER_ROLE.SUPER_ADMIN]),
         validationMiddleware(PostPatient.schema),
         PostPatient.workflow,
         errorMiddleware())
